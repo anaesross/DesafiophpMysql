@@ -1,6 +1,6 @@
 <?php 
 include_once("includes/connection.php");
-/* $path = 'assets/images/';
+$path = '/img';
 
 if(!empty($_FILES)) {
 
@@ -24,7 +24,7 @@ if(!empty($_FILES)) {
             //echo 'upload falhou';
         }
     }
-} */
+}  
 
 /*Cadastrar Produtos*/
 
@@ -33,28 +33,24 @@ if(!empty($_FILES)) {
     $categoriaProduto = $_POST['categoria'];
     $precoProduto = $_POST['preco'];
     $quantidadeProduto = $_POST['quantidade'];
-    // $imagemProduto = $_POST['imagem'];
+    $imagemProduto = $_POST['imagem'];
 
-    $query = $db->prepare('INSERT INTO desafiophp (nome, descricao, categoria, preco, quantidade/*,imagem*/) 
+    $query = $db->prepare('INSERT INTO desafiophp (nome, descricao, categoria, preco, quantidade,imagem) 
     VALUES (
-        :nome,
-        :descricao,
-        :categoria,
-        :preco,
-        :quantidade,
-        -- :imagem
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?
     )');
 
-    $result = $query->execute([
-        "nome" => $nomeProduto,
-        "descricao" => $descricaoProduto,
-        "categoria" => $categoriaProduto,
-        "preco" => $precoProduto,
-        "quantidade" => $quantidadeProduto,
-        // "imagem" => $imagemProduto
-    ]);
-
+    $result = $query->execute([$nomeProduto, $descricaoProduto, $categoriaProduto, $precoProduto, $quantidadeProduto, 
+    $imagemProduto]);
+        
+        echo "<pre>";
         var_dump($result);
+        die;
 
     echo "<script>
             alert('Produto cadastro com sucesso!');
